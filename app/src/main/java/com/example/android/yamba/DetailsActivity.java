@@ -11,7 +11,8 @@ public class DetailsActivity extends SubActivity {
 		// Check if this activity was created before
 		if (savedInstanceState == null) {
 			// Create a fragment
-			DetailsFragment fragment = new DetailsFragment();
+            long statusId = getIntent().getLongExtra(StatusContract.Column.ID, -1);
+			DetailsFragment fragment = DetailsFragment.newInstance(statusId);
 			getSupportFragmentManager()
 					.beginTransaction()
 					.add(android.R.id.content, fragment,

@@ -15,6 +15,17 @@ import android.widget.TextView;
 public class DetailsFragment extends Fragment {
 	private TextView textUser, textMessage, textCreatedAt;
 
+    //Best practice is to use a factory and feed parameters into arguments
+    public static DetailsFragment newInstance(long statusId) {
+        DetailsFragment fragment = new DetailsFragment();
+
+        Bundle args = new Bundle();
+        args.putLong(StatusContract.Column.ID, statusId);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -31,10 +42,10 @@ public class DetailsFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		long id = getActivity().getIntent().getLongExtra(
-				StatusContract.Column.ID, -1);
-
-		updateView(id);
+		if (getArguments() != null) {
+            long id = getArguments().getLong(StatusContract.Column.ID);
+            updateView(id);
+        }
 	}
 	
 	public void updateView(long id) {
