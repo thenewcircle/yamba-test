@@ -1,14 +1,17 @@
 package com.example.android.yamba;
 
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.marakana.android.yamba.clientlib.YambaClient;
 import com.marakana.android.yamba.clientlib.YambaClient.Status;
@@ -19,6 +22,10 @@ import java.util.List;
 public class RefreshService extends IntentService {
 	private static final String TAG = RefreshService.class.getSimpleName();
 
+    public static final int NOTIFICATION_ID = 42;
+
+    private NotificationManager mNotificationManager;
+
 	public RefreshService() {
 		super(TAG);
 	}
@@ -27,6 +34,7 @@ public class RefreshService extends IntentService {
 	public void onCreate() {
 		super.onCreate();
 		Log.d(TAG, "onCreated");
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 	}
 
 	// Executes on a worker thread
@@ -39,8 +47,7 @@ public class RefreshService extends IntentService {
 
 		// Check that username and password are not empty
 		if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-			Toast.makeText(this, "Please update your username and password",
-					Toast.LENGTH_LONG).show();
+			Log.w(TAG, "Please update your username and password");
 			return;
 		}
 		Log.d(TAG, "onStarted");
@@ -70,17 +77,30 @@ public class RefreshService extends IntentService {
 			}
 
 			if (count > 0) {
-				sendBroadcast(new Intent("com.example.android.yamba.action.NEW_STATUSES")
-                        .putExtra("count", count));
+				postStatusNotification(count);
 			}
 
 		} catch (YambaClientException e) {
 			Log.e(TAG, "Failed to fetch the timeline", e);
 			e.printStackTrace();
 		}
-
-		return;
 	}
+
+    private void postStatusNotification(int count) {
+        PendingIntent operation = PendingIntent.getActivity(this, 0,
+                new Intent(this, MainActivity.class),
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Notification notification = new NotificationCompat.Builder(this)
+                .setContentTitle("New tweets!")
+                .setContentText("You've got " + count + " new tweets")
+                .setSmallIcon(android.R.drawable.sym_action_email)
+                .setContentIntent(operation)
+                .setAutoCancel(true)
+                .build();
+
+        mNotificationManager.notify(NOTIFICATION_ID, notification);
+    }
 
 	@Override
 	public void onDestroy() {

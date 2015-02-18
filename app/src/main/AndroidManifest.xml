@@ -32,6 +32,9 @@
 
         <activity android:name=".DetailsActivity" />
 
+        <service android:name=".StatusUpdateService"
+            android:exported="false"/>
+
         <service android:name=".RefreshService"
             android:exported="false"/>
 
@@ -46,13 +49,6 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="com.example.android.yamba.action.UPDATED_INTERVAL" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".NotificationReceiver"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.example.android.yamba.action.NEW_STATUSES" />
             </intent-filter>
         </receiver>
 
