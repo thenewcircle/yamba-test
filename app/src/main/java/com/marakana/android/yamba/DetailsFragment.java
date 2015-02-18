@@ -1,10 +1,11 @@
 package com.marakana.android.yamba;
 
-import android.app.Fragment;
+
 import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ public class DetailsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.list_item, null, false);
+		View view = inflater.inflate(R.layout.list_item, container, false);
 
 		textUser = (TextView) view.findViewById(R.id.list_item_text_user);
 		textMessage = (TextView) view.findViewById(R.id.list_item_text_message);
@@ -48,8 +49,10 @@ public class DetailsFragment extends Fragment {
 		
 		Cursor cursor = getActivity().getContentResolver().query(uri, null,
 				null, null, null);
-		if (!cursor.moveToFirst())
-			return;
+		if (!cursor.moveToFirst()) {
+            cursor.close();
+            return;
+        }
 		
 		String user = cursor.getString(cursor
 				.getColumnIndex(StatusContract.Column.USER));
@@ -60,6 +63,8 @@ public class DetailsFragment extends Fragment {
 		
 		textUser.setText(user);
 		textMessage.setText(message);
-		textCreatedAt.setText(DateUtils.getRelativeTimeSpanString(createdAt));		
+		textCreatedAt.setText(DateUtils.getRelativeTimeSpanString(createdAt));
+
+        cursor.close();
 	}
 }

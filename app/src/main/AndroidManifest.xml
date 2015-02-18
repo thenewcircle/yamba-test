@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.marakana.android.yamba"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="17" />
+    package="com.marakana.android.yamba">
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -35,13 +29,12 @@
         </activity>
         <activity
             android:name="com.marakana.android.yamba.SettingsActivity"
-            android:label="@string/action_settings" >
-        </activity>
-        <activity android:name="com.marakana.android.yamba.DetailsActivity" >
-        </activity>
+            android:label="@string/action_settings" />
 
-        <service android:name="com.marakana.android.yamba.RefreshService" >
-        </service>
+        <activity android:name="com.marakana.android.yamba.DetailsActivity" />
+
+        <service android:name="com.marakana.android.yamba.RefreshService"
+            android:exported="false"/>
 
         <provider
             android:name="com.marakana.android.yamba.StatusProvider"

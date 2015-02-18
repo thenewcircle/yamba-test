@@ -12,7 +12,7 @@ public class StatusActivity extends SubActivity {
 		if (savedInstanceState == null) {
 			// Create a fragment
 			StatusFragment fragment = new StatusFragment();
-			getFragmentManager()
+			getSupportFragmentManager()
 					.beginTransaction()
 					.add(android.R.id.content, fragment,
 							fragment.getClass().getSimpleName()).commit();

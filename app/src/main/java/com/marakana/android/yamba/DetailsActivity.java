@@ -12,7 +12,7 @@ public class DetailsActivity extends SubActivity {
 		if (savedInstanceState == null) {
 			// Create a fragment
 			DetailsFragment fragment = new DetailsFragment();
-			getFragmentManager()
+			getSupportFragmentManager()
 					.beginTransaction()
 					.add(android.R.id.content, fragment,
 							fragment.getClass().getSimpleName()).commit();
