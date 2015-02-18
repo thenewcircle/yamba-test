@@ -1,6 +1,4 @@
-package com.marakana.android.yamba;
-
-import java.util.List;
+package com.example.android.yamba;
 
 import android.app.IntentService;
 import android.content.ContentValues;
@@ -15,6 +13,8 @@ import android.widget.Toast;
 import com.marakana.android.yamba.clientlib.YambaClient;
 import com.marakana.android.yamba.clientlib.YambaClient.Status;
 import com.marakana.android.yamba.clientlib.YambaClientException;
+
+import java.util.List;
 
 public class RefreshService extends IntentService {
 	private static final String TAG = RefreshService.class.getSimpleName();
@@ -70,9 +70,8 @@ public class RefreshService extends IntentService {
 			}
 
 			if (count > 0) {
-				sendBroadcast(new Intent(
-						"com.marakana.android.yamba.action.NEW_STATUSES").putExtra(
-						"count", count));
+				sendBroadcast(new Intent("com.example.android.yamba.action.NEW_STATUSES")
+                        .putExtra("count", count));
 			}
 
 		} catch (YambaClientException e) {

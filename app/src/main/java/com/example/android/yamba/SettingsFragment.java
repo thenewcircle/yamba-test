@@ -1,4 +1,4 @@
-package com.marakana.android.yamba;
+package com.example.android.yamba;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +33,6 @@ public class SettingsFragment extends PreferenceFragment implements
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
-		getActivity().sendBroadcast( new Intent("com.marakana.android.yamba.action.UPDATED_INTERVAL") );
+		getActivity().sendBroadcast( new Intent("com.example.android.yamba.action.UPDATED_INTERVAL") );
 	}
 }

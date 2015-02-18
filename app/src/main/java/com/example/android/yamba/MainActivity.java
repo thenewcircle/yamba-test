@@ -1,4 +1,4 @@
-package com.marakana.android.yamba;
+package com.example.android.yamba;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +31,7 @@ public class MainActivity extends ActionBarActivity {
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
 		case R.id.action_tweet:
-			startActivity(new Intent("com.marakana.android.yamba.action.tweet"));
+			startActivity(new Intent("com.example.android.yamba.action.tweet"));
 			return true;
 		case R.id.action_refresh:
 			startService(new Intent(this, RefreshService.class));

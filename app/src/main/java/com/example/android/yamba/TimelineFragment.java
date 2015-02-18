@@ -1,4 +1,4 @@
-package com.marakana.android.yamba;
+package com.example.android.yamba;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,11 +20,9 @@ public class TimelineFragment extends ListFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 	private static final String TAG = TimelineFragment.class.getSimpleName();
 	private static final String[] FROM = { StatusContract.Column.USER,
-			StatusContract.Column.MESSAGE, StatusContract.Column.CREATED_AT,
-			StatusContract.Column.CREATED_AT };
+			StatusContract.Column.MESSAGE, StatusContract.Column.CREATED_AT };
 	private static final int[] TO = { R.id.list_item_text_user,
-			R.id.list_item_text_message, R.id.list_item_text_created_at,
-			R.id.list_item_freshness };
+			R.id.list_item_text_message, R.id.list_item_text_created_at };
 	private static final int LOADER_ID = 42;
 	private SimpleCursorAdapter mAdapter;
 
@@ -41,10 +39,6 @@ public class TimelineFragment extends ListFragment implements
 				CharSequence relTime = DateUtils
 						.getRelativeTimeSpanString(timestamp);
 				((TextView) view).setText(relTime);
-				return true;
-			case R.id.list_item_freshness:
-				timestamp = cursor.getLong(columnIndex);
-				((FreshnessView) view).setTimestamp(timestamp);
 				return true;
 			default:
 				return false;

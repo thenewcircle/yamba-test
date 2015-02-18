@@ -1,4 +1,4 @@
-package com.marakana.android.yamba;
+package com.example.android.yamba;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -107,7 +107,7 @@ public class StatusProvider extends ContentProvider {
 	// Implement Purge feature
 	// Use db.delete()
 	// DELETE FROM status WHERE id=? AND user='?'
-	// uri: content://com.marakana.android.yamba.StatusProvider/status/47
+	// uri: content://com.example.android.yamba.StatusProvider/status/47
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		String where;

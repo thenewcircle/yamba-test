@@ -1,4 +1,4 @@
-package com.marakana.android.yamba;
+package com.example.android.yamba;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
