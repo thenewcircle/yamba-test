@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -89,8 +90,10 @@ public class StatusUpdateService extends IntentService {
         Intent intent = new Intent(this, StatusActivity.class);
         intent.putExtra(EXTRA_MESSAGE, originalMessage);
 
-        PendingIntent operation = PendingIntent.getActivity(this, 0,
-                intent, PendingIntent.FLAG_ONE_SHOT);
+        //This is a deep-link and we need to synthesize the proper activity stack
+        PendingIntent operation = TaskStackBuilder.create(this)
+                .addNextIntentWithParentStack(intent)
+                .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("Post Error")

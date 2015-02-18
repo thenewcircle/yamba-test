@@ -29,7 +29,7 @@ public class StatusActivity extends SubActivity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_status);
+        setContentView(R.layout.activity_status);
         Log.d(TAG, "onCreated");
 
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
