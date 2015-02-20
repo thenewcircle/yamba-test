@@ -13,9 +13,9 @@ import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.marakana.android.yamba.clientlib.YambaClient;
-import com.marakana.android.yamba.clientlib.YambaClient.Status;
-import com.marakana.android.yamba.clientlib.YambaClientException;
+import com.thenewcircle.yamba.client.YambaClient;
+import com.thenewcircle.yamba.client.YambaClientException;
+import com.thenewcircle.yamba.client.YambaStatus;
 
 import java.util.List;
 
@@ -57,8 +57,8 @@ public class RefreshService extends IntentService {
 		YambaClient cloud = new YambaClient(username, password);
 		try {
 			int count = 0;
-			List<Status> timeline = cloud.getTimeline(20);
-			for (Status status : timeline) {
+			List<YambaStatus> timeline = cloud.getTimeline(20);
+			for (YambaStatus status : timeline) {
 				values.clear();
 				values.put(StatusContract.Column.ID, status.getId());
 				values.put(StatusContract.Column.USER, status.getUser());

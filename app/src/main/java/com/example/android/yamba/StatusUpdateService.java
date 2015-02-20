@@ -13,7 +13,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.marakana.android.yamba.clientlib.YambaClient;
+import com.thenewcircle.yamba.client.YambaClient;
 
 public class StatusUpdateService extends IntentService {
     private static final String TAG = StatusUpdateService.class.getSimpleName();
