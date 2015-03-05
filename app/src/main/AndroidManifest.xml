@@ -4,7 +4,6 @@
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -53,19 +52,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".YambaWidget"
-            android:exported="false"  >
-            <intent-filter>
-                <action android:name="com.example.android.yamba.action.NEW_STATUSES" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/yamba_widget" />
-        </receiver>
     </application>
 
 </manifest>

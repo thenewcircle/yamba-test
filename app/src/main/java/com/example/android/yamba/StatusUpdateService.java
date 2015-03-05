@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -21,7 +20,6 @@ public class StatusUpdateService extends IntentService {
     public static final int NOTIFICATION_ID = 43;
 
     public static final String EXTRA_MESSAGE = "message";
-    public static final String EXTRA_LOCATION = "location";
 
     private NotificationManager mNotificationManager;
 
@@ -40,7 +38,6 @@ public class StatusUpdateService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         //Gather received parameters
         String message = intent.getStringExtra(EXTRA_MESSAGE);
-        Location location = intent.getParcelableExtra(EXTRA_LOCATION);
 
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -57,12 +54,7 @@ public class StatusUpdateService extends IntentService {
             postProgressNotification();
 
             YambaClient cloud = new YambaClient(username, password);
-            if (location != null) {
-                cloud.postStatus(message, location.getLatitude(),
-                        location.getLongitude());
-            } else {
-                cloud.postStatus(message);
-            }
+            cloud.postStatus(message);
 
             //Hide progress when completed successfully
             Log.d(TAG, "Successfully posted to the cloud: " + message);
@@ -78,7 +70,7 @@ public class StatusUpdateService extends IntentService {
     private void postProgressNotification() {
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("Posting Status")
-                .setContentText("Status update in progres...")
+                .setContentText("Status update in progress...")
                 .setSmallIcon(android.R.drawable.sym_action_email)
                 .setOngoing(true)
                 .build();
