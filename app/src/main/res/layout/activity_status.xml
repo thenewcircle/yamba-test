@@ -9,7 +9,6 @@
 
     <Button
         android:id="@+id/status_button_tweet"
-        style="@style/font_general"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -18,7 +17,6 @@
 
     <EditText
         android:id="@+id/status_text"
-        style="@style/font_general"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/status_button_tweet"
@@ -32,12 +30,11 @@
 
     <TextView
         android:id="@+id/status_text_count"
-        style="@style/font_general"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/status_button_tweet"
         android:layout_alignBottom="@+id/status_button_tweet"
         android:layout_alignLeft="@+id/status_text"
-        android:text="140" />
+        tools:text="140" />
 
 </RelativeLayout>

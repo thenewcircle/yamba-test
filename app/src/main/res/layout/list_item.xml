@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list_item_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
@@ -11,35 +10,34 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
-        android:id="@+id/list_item_text_user"
+        android:id="@+id/text_user"
+        style="@style/TitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         tools:text="Slashdot"/>
 
     <TextView
-        android:id="@+id/list_item_text_created_at"
+        android:id="@+id/text_created_at"
+        style="@style/SmallText.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/list_item_text_user"
-        android:layout_alignBottom="@+id/list_item_text_user"
+        android:layout_alignBaseline="@+id/text_user"
+        android:layout_alignBottom="@+id/text_user"
         android:layout_alignParentRight="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/secondary_text_light"
         tools:text="10 minutes ago"/>
 
     <TextView
-        android:id="@+id/list_item_text_message"
+        android:id="@+id/text_message"
+        style="@style/SmallText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/list_item_text_created_at"
+        android:layout_below="@+id/text_created_at"
         android:autoLink="web"
         android:focusable="false"
         android:linksClickable="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="Android just became the #1 OS on the planet. Take that, Microsoft! http://t.co/123"/>
 
 </RelativeLayout>

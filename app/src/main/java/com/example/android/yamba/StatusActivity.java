@@ -3,6 +3,7 @@ package com.example.android.yamba;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -11,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class StatusActivity extends SubActivity implements
+public class StatusActivity extends ActionBarActivity implements
         View.OnClickListener, TextWatcher {
     private static final String TAG = StatusActivity.class.getSimpleName();
 
@@ -23,6 +24,9 @@ public class StatusActivity extends SubActivity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Action bar stuff
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_status);
         Log.d(TAG, "onCreated");
 

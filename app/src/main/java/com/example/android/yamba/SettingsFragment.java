@@ -9,7 +9,7 @@ import android.preference.PreferenceManager;
 
 public class SettingsFragment extends PreferenceFragment implements
 		OnSharedPreferenceChangeListener {
-	private SharedPreferences prefs;
+	private SharedPreferences mPreferences;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -20,14 +20,14 @@ public class SettingsFragment extends PreferenceFragment implements
 	@Override
 	public void onStart() {
 		super.onStart();
-		prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		prefs.registerOnSharedPreferenceChangeListener(this);
+		mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		mPreferences.registerOnSharedPreferenceChangeListener(this);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		prefs.unregisterOnSharedPreferenceChangeListener(this);
+		mPreferences.unregisterOnSharedPreferenceChangeListener(this);
 	}
 
 	@Override

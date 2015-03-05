@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class DetailsFragment extends Fragment {
-	private TextView textUser, textMessage, textCreatedAt;
+	private TextView mTextUser, mTextMessage, mTextCreatedAt;
 
     //Best practice is to use a factory and feed parameters into arguments
     public static DetailsFragment newInstance(long statusId) {
@@ -29,12 +29,12 @@ public class DetailsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.list_item, container, false);
+		View view = inflater.inflate(R.layout.fragment_details, container, false);
 
-		textUser = (TextView) view.findViewById(R.id.list_item_text_user);
-		textMessage = (TextView) view.findViewById(R.id.list_item_text_message);
-		textCreatedAt = (TextView) view
-				.findViewById(R.id.list_item_text_created_at);
+		mTextUser = (TextView) view.findViewById(R.id.text_user);
+		mTextMessage = (TextView) view.findViewById(R.id.text_message);
+		mTextCreatedAt = (TextView) view
+				.findViewById(R.id.text_created_at);
 
 		return view;
 	}
@@ -50,9 +50,9 @@ public class DetailsFragment extends Fragment {
 	
 	public void updateView(long id) {
 		if (id == -1) {
-			textUser.setText("");
-			textMessage.setText("");
-			textCreatedAt.setText("");
+			mTextUser.setText("");
+			mTextMessage.setText("");
+			mTextCreatedAt.setText("");
 			return;
 		}
 
@@ -72,9 +72,9 @@ public class DetailsFragment extends Fragment {
 		long createdAt = cursor.getLong(cursor
 				.getColumnIndex(StatusContract.Column.CREATED_AT));
 		
-		textUser.setText(user);
-		textMessage.setText(message);
-		textCreatedAt.setText(DateUtils.getRelativeTimeSpanString(createdAt));
+		mTextUser.setText(user);
+		mTextMessage.setText(message);
+		mTextCreatedAt.setText(DateUtils.getRelativeTimeSpanString(createdAt));
 
         cursor.close();
 	}

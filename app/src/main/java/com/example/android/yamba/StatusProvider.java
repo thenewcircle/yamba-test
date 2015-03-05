@@ -13,7 +13,7 @@ import android.util.Log;
 
 public class StatusProvider extends ContentProvider {
 	private static final String TAG = StatusProvider.class.getSimpleName();
-	private DbHelper dbHelper;
+	private DbHelper mDbHelper;
 
 	private static final UriMatcher sURIMatcher = new UriMatcher(
 			UriMatcher.NO_MATCH);
@@ -26,7 +26,7 @@ public class StatusProvider extends ContentProvider {
 
 	@Override
 	public boolean onCreate() {
-		dbHelper = new DbHelper(getContext());
+		mDbHelper = new DbHelper(getContext());
 		Log.d(TAG, "onCreated");
 		return false;
 	}
@@ -54,7 +54,7 @@ public class StatusProvider extends ContentProvider {
 			throw new IllegalArgumentException("Illegal uri: " + uri);
 		}
 
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		long rowId = db.insertWithOnConflict(StatusContract.TABLE, null,
 				values, SQLiteDatabase.CONFLICT_IGNORE);
 
@@ -93,7 +93,7 @@ public class StatusProvider extends ContentProvider {
 			throw new IllegalArgumentException("Illegal uri: " + uri);
 		}
 
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		int ret = db.update(StatusContract.TABLE, values, where, selectionArgs);
 
 		if(ret>0) {
@@ -129,7 +129,7 @@ public class StatusProvider extends ContentProvider {
 			throw new IllegalArgumentException("Illegal uri: " + uri);
 		}
 
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		int ret = db.delete(StatusContract.TABLE, where, selectionArgs);
 
 		if(ret>0) {
@@ -163,7 +163,7 @@ public class StatusProvider extends ContentProvider {
 		String orderBy = (TextUtils.isEmpty(sortOrder)) ? StatusContract.DEFAULT_SORT
 				: sortOrder;
 		
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		SQLiteDatabase db = mDbHelper.getReadableDatabase();
 		Cursor cursor = qb.query(db, projection, selection, selectionArgs, null, null, orderBy);
 		
 		// register for uri changes

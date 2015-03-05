@@ -1,12 +1,15 @@
 package com.example.android.yamba;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
-public class SettingsActivity extends SubActivity {
+public class SettingsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Action bar stuff
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Check if this activity was created before
         if (savedInstanceState == null) {
