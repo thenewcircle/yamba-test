@@ -2,8 +2,6 @@ package com.example.android.yamba;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -29,10 +27,8 @@ public class RefreshService extends IntentService {
 	// Executes on a worker thread
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		final String username = prefs.getString("username", "");
-		final String password = prefs.getString("password", "");
+		final String username = "student";
+		final String password = "password";
 
 		// Check that username and password are not empty
 		if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
