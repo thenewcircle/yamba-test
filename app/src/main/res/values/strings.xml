@@ -5,7 +5,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="status_button_tweet">Post</string>
     <string name="status_text_hint">What\'s happening?</string>
-    <string name="refresh">Refresh</string>
     <string name="status_update">Status Update</string>
 
 </resources>

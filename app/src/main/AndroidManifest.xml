@@ -20,9 +20,6 @@
         <service android:name=".StatusUpdateService"
             android:exported="false"/>
 
-        <service android:name=".RefreshService"
-            android:exported="false"/>
-
     </application>
 
 </manifest>

@@ -7,8 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,23 +80,4 @@ public class StatusActivity extends ActionBarActivity implements
         mTextStatus.getText().clear();
     }
 
-    // Called to lazily initialize the action bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    // Called every time user clicks on an action
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_refresh:
-                startService(new Intent(this, RefreshService.class));
-                return true;
-            default:
-                return false;
-        }
-    }
 }
