@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class StatusActivity extends ActionBarActivity implements
         View.OnClickListener, TextWatcher {
@@ -100,10 +99,6 @@ public class StatusActivity extends ActionBarActivity implements
                 return true;
             case R.id.action_refresh:
                 startService(new Intent(this, RefreshService.class));
-                return true;
-            case R.id.action_purge:
-                int rows = getContentResolver().delete(StatusContract.CONTENT_URI, null, null);
-                Toast.makeText(this, "Deleted " + rows + " rows", Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return false;

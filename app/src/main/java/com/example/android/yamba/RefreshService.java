@@ -1,14 +1,9 @@
 package com.example.android.yamba;
 
 import android.app.IntentService;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -21,10 +16,6 @@ import java.util.List;
 public class RefreshService extends IntentService {
 	private static final String TAG = RefreshService.class.getSimpleName();
 
-    public static final int NOTIFICATION_ID = 42;
-
-    private NotificationManager mNotificationManager;
-
 	public RefreshService() {
 		super(TAG);
 	}
@@ -33,7 +24,6 @@ public class RefreshService extends IntentService {
 	public void onCreate() {
 		super.onCreate();
 		Log.d(TAG, "onCreated");
-        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 	}
 
 	// Executes on a worker thread
@@ -51,51 +41,18 @@ public class RefreshService extends IntentService {
 		}
 		Log.d(TAG, "onStarted");
 
-		ContentValues values = new ContentValues();
-
 		YambaClient cloud = new YambaClient(username, password);
 		try {
-			int count = 0;
 			List<YambaStatus> timeline = cloud.getTimeline(20);
-			for (YambaStatus status : timeline) {
-				values.clear();
-				values.put(StatusContract.Column.ID, status.getId());
-				values.put(StatusContract.Column.USER, status.getUser());
-				values.put(StatusContract.Column.MESSAGE, status.getMessage());
-				values.put(StatusContract.Column.CREATED_AT, status
-						.getCreatedAt().getTime());
 
-				Uri uri = getContentResolver().insert(
-						StatusContract.CONTENT_URI, values);
-				if (uri != null) {
-					count++;
-					Log.d(TAG,
-							String.format("%s: %s", status.getUser(),
-									status.getMessage()));
-				}
-			}
-
-			if (count > 0) {
-				postStatusNotification(count);
-			}
+            //Log the outcome for now…
+			Log.i(TAG, "Received " + timeline.size() + " updates");
 
 		} catch (YambaClientException e) {
 			Log.e(TAG, "Failed to fetch the timeline", e);
 			e.printStackTrace();
 		}
 	}
-
-    private void postStatusNotification(int count) {
-
-        Notification notification = new NotificationCompat.Builder(this)
-                .setContentTitle("New tweets!")
-                .setContentText("You've got " + count + " new tweets")
-                .setSmallIcon(android.R.drawable.sym_action_email)
-                .setAutoCancel(true)
-                .build();
-
-        mNotificationManager.notify(NOTIFICATION_ID, notification);
-    }
 
 	@Override
 	public void onDestroy() {

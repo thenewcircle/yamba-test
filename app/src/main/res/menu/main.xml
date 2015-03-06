@@ -7,11 +7,6 @@
         app:showAsAction="never"
         android:title="@string/action_settings"/>
     <item
-        android:id="@+id/action_purge"
-        android:orderInCategory="90"
-        app:showAsAction="never"
-        android:title="@string/purge"/>
-    <item
         android:id="@+id/action_refresh"
         android:icon="@android:drawable/ic_menu_rotate"
         app:showAsAction="ifRoom"
