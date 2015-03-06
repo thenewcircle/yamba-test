@@ -12,11 +12,6 @@
         app:showAsAction="never"
         android:title="@string/purge"/>
     <item
-        android:id="@+id/action_tweet"
-        android:icon="@android:drawable/ic_menu_send"
-        app:showAsAction="ifRoom"
-        android:title="@string/tweet"/>
-    <item
         android:id="@+id/action_refresh"
         android:icon="@android:drawable/ic_menu_rotate"
         app:showAsAction="ifRoom"

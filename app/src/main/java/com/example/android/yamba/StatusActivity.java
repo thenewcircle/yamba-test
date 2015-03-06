@@ -7,10 +7,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StatusActivity extends ActionBarActivity implements
         View.OnClickListener, TextWatcher {
@@ -24,9 +27,6 @@ public class StatusActivity extends ActionBarActivity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Action bar stuff
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.activity_status);
         Log.d(TAG, "onCreated");
 
@@ -79,7 +79,34 @@ public class StatusActivity extends ActionBarActivity implements
 
         startService(intent);
 
-        //We're done here
-        finish();
+        //Clear the UI
+        mTextStatus.getText().clear();
+    }
+
+    // Called to lazily initialize the action bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    // Called every time user clicks on an action
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            case R.id.action_refresh:
+                startService(new Intent(this, RefreshService.class));
+                return true;
+            case R.id.action_purge:
+                int rows = getContentResolver().delete(StatusContract.CONTENT_URI, null, null);
+                Toast.makeText(this, "Deleted " + rows + " rows", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return false;
+        }
     }
 }
