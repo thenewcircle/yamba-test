@@ -1,6 +1,5 @@
 package com.example.android.yamba;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -36,9 +35,8 @@ public class StatusActivity extends ActionBarActivity implements
         mButtonTweet.setOnClickListener(this);
         mTextStatus.addTextChangedListener(this);
 
-        //If the intent contains our message (from an error retry), populate it
         // This also triggers our text watcher to set the initial character count
-        mTextStatus.setText(getIntent().getStringExtra(StatusUpdateService.EXTRA_MESSAGE));
+        mTextStatus.setText(null);
     }
 
     // -- TextWatcher --
@@ -67,17 +65,7 @@ public class StatusActivity extends ActionBarActivity implements
 
     @Override
     public void onClick(View v) {
-        String status = mTextStatus.getText().toString();
         Log.d(TAG, "onClicked");
-
-        //Send the update to our background service
-        Intent intent = new Intent(this, StatusUpdateService.class);
-        intent.putExtra(StatusUpdateService.EXTRA_MESSAGE, status);
-
-        startService(intent);
-
-        //Clear the UI
-        mTextStatus.getText().clear();
     }
 
 }
