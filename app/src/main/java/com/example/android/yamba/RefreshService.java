@@ -76,7 +76,7 @@ public class RefreshService extends IntentService {
 				}
 			}
 
-			if (count > 0 && !MainActivity.isInTimeline()) {
+			if (count > 0) {
 				postStatusNotification(count);
 			}
 

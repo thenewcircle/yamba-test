@@ -35,14 +35,6 @@
                 android:value="com.example.android.yamba.MainActivity" />
         </activity>
 
-        <activity android:name=".DetailsActivity"
-            android:parentActivityName="com.example.android.yamba.MainActivity">
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.yamba.MainActivity" />
-        </activity>
-
         <service android:name=".StatusUpdateService"
             android:exported="false"/>
 
