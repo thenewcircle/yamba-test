@@ -61,6 +61,12 @@ public class StatusActivity extends AppCompatActivity implements
             case R.id.action_refresh:
                 startService(new Intent(this, RefreshService.class));
                 return true;
+            case R.id.action_purge:
+                int rows = getContentResolver()
+                        .delete(StatusContract.CONTENT_URI, null, null);
+                Toast.makeText(this, "Deleted " + rows + " rows",
+                        Toast.LENGTH_LONG).show();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

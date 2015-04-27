@@ -12,4 +12,9 @@
         android:icon="@android:drawable/ic_menu_rotate"
         android:title="@string/action_refresh"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_purge"
+        android:orderInCategory="90"
+        android:title="@string/action_purge"
+        app:showAsAction="never"/>
 </menu>

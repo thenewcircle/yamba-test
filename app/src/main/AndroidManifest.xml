@@ -19,10 +19,19 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".StatusUpdateService"
+        <service
+            android:name=".StatusUpdateService"
             android:exported="false" />
-        <service android:name=".RefreshService"
+        <service
+            android:name=".RefreshService"
             android:exported="false" />
+
+        <provider
+            android:name=".StatusProvider"
+            android:authorities="com.example.android.yamba.StatusProvider"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
     </application>
 
 </manifest>
