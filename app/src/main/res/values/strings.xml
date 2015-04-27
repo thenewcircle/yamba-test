@@ -8,5 +8,6 @@
     <string name="status_text_hint">What\'s Happening?</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_purge">Purge</string>
+    <string name="action_post">Post</string>
 
 </resources>

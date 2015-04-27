@@ -3,6 +3,7 @@ package com.example.android.yamba;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
@@ -75,10 +76,16 @@ public class RefreshService extends IntentService {
     }
 
     private void postStatusNotification(int count) {
+        Intent intent = new Intent(this, MainActivity.class);
+
+        PendingIntent operation = PendingIntent.getActivity(this, 0,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("New tweets!")
                 .setContentText("You've got " + count + " new tweets")
                 .setSmallIcon(android.R.drawable.sym_action_email)
+                .setContentIntent(operation)
                 .setAutoCancel(true)
                 .build();
 

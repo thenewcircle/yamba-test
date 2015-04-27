@@ -17,4 +17,9 @@
         android:orderInCategory="90"
         android:title="@string/action_purge"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_post"
+        android:icon="@android:drawable/ic_menu_send"
+        app:showAsAction="ifRoom"
+        android:title="@string/action_post"/>
 </menu>

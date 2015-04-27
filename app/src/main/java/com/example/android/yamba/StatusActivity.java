@@ -26,6 +26,9 @@ public class StatusActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Action bar stuff
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_status);
 
         mPostButton = (Button) findViewById(R.id.status_button);
@@ -42,37 +45,6 @@ public class StatusActivity extends AppCompatActivity implements
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_yamba, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.action_settings:
-                return true;
-            case R.id.action_refresh:
-                startService(new Intent(this, RefreshService.class));
-                return true;
-            case R.id.action_purge:
-                int rows = getContentResolver()
-                        .delete(StatusContract.CONTENT_URI, null, null);
-                Toast.makeText(this, "Deleted " + rows + " rows",
-                        Toast.LENGTH_LONG).show();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClick(View v) {
         String status = mTextStatus.getText().toString();
 
@@ -82,8 +54,8 @@ public class StatusActivity extends AppCompatActivity implements
 
         startService(intent);
 
-        //Clear the UI
-        mTextStatus.getText().clear();
+        //We're done here
+        finish();
     }
 
     @Override
