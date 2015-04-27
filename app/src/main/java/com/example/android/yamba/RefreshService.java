@@ -67,7 +67,7 @@ public class RefreshService extends IntentService {
                 }
             }
 
-            if (count > 0) {
+            if (count > 0 && !MainActivity.isInTimeline()) {
                 postStatusNotification(count);
             }
         } catch (YambaClientException e) {

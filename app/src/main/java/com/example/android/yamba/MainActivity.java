@@ -1,53 +1,38 @@
 package com.example.android.yamba;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor>,
-        SimpleCursorAdapter.ViewBinder {
+        TimelineFragment.OnTimelineItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final int LOADER_ID = 42;
-
-    private static final String[] FROM = {
-            StatusContract.Column.USER,
-            StatusContract.Column.MESSAGE,
-            StatusContract.Column.CREATED_AT };
-    private static final int[] TO = {
-            R.id.text_user,
-            R.id.text_message,
-            R.id.text_created_at };
-
-    private SimpleCursorAdapter mAdapter;
+    //Global notifier of when timeline is in the foreground
+    private static boolean inTimeline = false;
+    public static boolean isInTimeline() {
+        return inTimeline;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ListView timeline = new ListView(this);
-        setContentView(timeline);
+        setContentView(R.layout.activity_main);
+    }
 
-        mAdapter = new SimpleCursorAdapter(this, R.layout.list_item,
-                null, FROM, TO, 0);
-        mAdapter.setViewBinder(this);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        inTimeline = true;
+    }
 
-        timeline.setAdapter(mAdapter);
-
-        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        inTimeline = false;
     }
 
     @Override
@@ -84,38 +69,21 @@ public class MainActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    //Handle list item selections from the timeline
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        //Return all items from StatusProvider
-        return new CursorLoader(this, StatusContract.CONTENT_URI,
-                null, null, null, StatusContract.DEFAULT_SORT);
-    }
+    public void onTimelineItemSelected(long id) {
+        // Get the details fragment
+        DetailsFragment fragment = (DetailsFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_details);
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d(TAG, "onLoadFinished with cursor: " + data.getCount());
-        mAdapter.swapCursor(data);
-    }
+        // Is details fragment visible?
+        if (fragment != null && fragment.isVisible()) {
+            fragment.updateView(id);
+        } else {
+            Intent intent = new Intent(this, DetailsActivity.class);
+            intent.putExtra(StatusContract.Column.ID, id);
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        mAdapter.swapCursor(null);
-    }
-
-    @Override
-    public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-        long timestamp;
-
-        // Custom binding
-        switch (view.getId()) {
-            case R.id.text_created_at:
-                timestamp = cursor.getLong(columnIndex);
-                CharSequence relTime = DateUtils
-                        .getRelativeTimeSpanString(timestamp);
-                ((TextView) view).setText(relTime);
-                return true;
-            default:
-                return false;
+            startActivity(intent);
         }
     }
 }
