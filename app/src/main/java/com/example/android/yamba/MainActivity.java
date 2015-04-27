@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements
 
         switch (id) {
             case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.action_refresh:
                 startService(new Intent(this, RefreshService.class));

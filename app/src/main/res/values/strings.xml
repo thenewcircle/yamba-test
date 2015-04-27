@@ -9,5 +9,11 @@
     <string name="action_refresh">Refresh</string>
     <string name="action_purge">Purge</string>
     <string name="action_post">Post</string>
+    <string name="username_key">username</string>
+    <string name="username_summary">What\'s your user name?</string>
+    <string name="username">User Name</string>
+    <string name="password_key">password</string>
+    <string name="password_summary">How do you log in?</string>
+    <string name="password">Password</string>
 
 </resources>
