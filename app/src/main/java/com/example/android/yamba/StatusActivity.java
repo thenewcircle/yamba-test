@@ -1,5 +1,6 @@
 package com.example.android.yamba;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +37,8 @@ public class StatusActivity extends AppCompatActivity implements
 
         mDefaultColor = mTextCount.getTextColors().getDefaultColor();
 
-        mTextStatus.setText(null);
+        mTextStatus.setText(getIntent()
+                .getStringExtra(StatusUpdateService.EXTRA_MESSAGE));
     }
 
     @Override
@@ -53,9 +55,12 @@ public class StatusActivity extends AppCompatActivity implements
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_refresh:
+                startService(new Intent(this, RefreshService.class));
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -63,7 +68,16 @@ public class StatusActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Click!", Toast.LENGTH_SHORT).show();
+        String status = mTextStatus.getText().toString();
+
+        //Send the update to our background service
+        Intent intent = new Intent(this, StatusUpdateService.class);
+        intent.putExtra(StatusUpdateService.EXTRA_MESSAGE, status);
+
+        startService(intent);
+
+        //Clear the UI
+        mTextStatus.getText().clear();
     }
 
     @Override

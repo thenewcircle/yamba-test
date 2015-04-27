@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="status_button">Post</string>
     <string name="status_text_hint">What\'s Happening?</string>
+    <string name="action_refresh">Refresh</string>
 
 </resources>
