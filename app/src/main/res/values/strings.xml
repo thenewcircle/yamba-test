@@ -15,5 +15,8 @@
     <string name="password_key">password</string>
     <string name="password_summary">How do you log in?</string>
     <string name="password">Password</string>
+    <string name="interval_key">interval</string>
+    <string name="interval_summary">How frequently should data refresh?</string>
+    <string name="interval">Refresh Interval</string>
 
 </resources>
