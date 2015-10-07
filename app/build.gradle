@@ -28,6 +28,8 @@ dependencies {
 
     // Local unit test dependencies
     testCompile 'junit:junit:4.12'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.2'
+    testCompile 'org.powermock:powermock-module-junit4:1.6.2'
 
     // Instrumentation test dependencies
     androidTestCompile 'com.android.support.test:runner:0.4'
