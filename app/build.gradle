@@ -10,6 +10,8 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -23,4 +25,10 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.newcircle:yamba-client:2.1.0'
+
+    // Local unit test dependencies
+    testCompile 'junit:junit:4.12'
+
+    // Instrumentation test dependencies
+    androidTestCompile 'com.android.support.test:runner:0.4'
 }
