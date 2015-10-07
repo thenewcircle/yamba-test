@@ -9,8 +9,14 @@ import android.support.test.filters.SdkSuppress;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
+
+import com.example.android.yamba.pages.MainPageObject;
+import com.example.android.yamba.pages.SettingsPageObject;
+import com.example.android.yamba.pages.StatusPageObject;
+import com.example.android.yamba.utils.SystemUiHelper;
+import com.example.android.yamba.utils.SystemUiHelperFactory;
+import com.example.android.yamba.utils.TestConfig;
 
 import org.junit.After;
 import org.junit.Before;
@@ -39,12 +45,14 @@ public class SimpleUiAutomatorTest {
     private static final int UI_TIMEOUT = 1500;
 
     private UiDevice mDevice;
+    private SystemUiHelper mUiHelper;
 
     @Before
     public void startActivityFromHomeScreen() {
         // Initialize UiDevice instance
         mDevice = UiDevice.getInstance(
                 InstrumentationRegistry.getInstrumentation());
+        mUiHelper = SystemUiHelperFactory.create(mDevice);
 
         // Start from the home screen
         mDevice.pressHome();
@@ -74,56 +82,26 @@ public class SimpleUiAutomatorTest {
 
     @Test
     public void failedMessagePostShouldTriggerNotification() {
-        String username = "tester";
-        String password = "test";
-        String testMessage = "blah blah";
+        String username = TestConfig.getUsername();
+        String password = TestConfig.getPassword();
+        String testMessage = TestConfig.getTestMessage();
         String errorNotificationMessage = "Error posting status update";
 
         //navigate to settings to log in as a user
-        mDevice.findObject(By.descContains("More options"))
-                .clickAndWait(Until.newWindow(), UI_TIMEOUT);
-        mDevice.findObject(By.textContains("Settings"))
-                .clickAndWait(Until.newWindow(), UI_TIMEOUT);
+        MainPageObject.navigateToSettings();
 
         //log in as an incorrect user: tester, password: test
-        final Context context = InstrumentationRegistry.getTargetContext();
-        String usernameTitle = context.getString(R.string.username);
-        String passwordTitle = context.getString(R.string.password);
-
-        mDevice.findObject(By.textContains(usernameTitle)).click();
-        mDevice.wait(Until.hasObject(By.res("android", "edit")), UI_TIMEOUT);
-        mDevice.findObject(By.res("android", "edit")).setText(username);
-        mDevice.findObject(By.res("android", "button1"))
-                .clickAndWait(Until.newWindow(), UI_TIMEOUT);
-
-        mDevice.findObject(By.textContains(passwordTitle)).click();
-        mDevice.wait(Until.hasObject(By.res("android", "edit")), UI_TIMEOUT);
-        mDevice.findObject(By.res("android", "edit")).setText(password);
-        mDevice.findObject(By.res("android", "button1"))
-                .clickAndWait(Until.newWindow(), UI_TIMEOUT);
+        SettingsPageObject.setUsername(username);
+        SettingsPageObject.setPassword(password);
 
         //return to main activity
         mDevice.pressBack();
 
         //click post message
-        UiObject2 postAction = mDevice.findObject(
-                By.res(TARGET_PACKAGE, "action_post"));
-        if (postAction == null) {
-            // post is in the overflow on this device
-            String postTitle = context.getString(R.string.action_post);
-            mDevice.findObject(By.descContains("More options"))
-                    .clickAndWait(Until.newWindow(), UI_TIMEOUT);
-            mDevice.findObject(By.textContains(postTitle))
-                    .clickAndWait(Until.newWindow(), UI_TIMEOUT);
-        } else {
-            postAction.clickAndWait(Until.newWindow(), UI_TIMEOUT);
-        }
+        MainPageObject.navigateToPost();
 
         //compose message and click post
-        mDevice.findObject(By.res(TARGET_PACKAGE, "status_text"))
-                .setText(testMessage);
-        mDevice.findObject(By.res(TARGET_PACKAGE, "status_button"))
-                .click();
+        StatusPageObject.sendStatus(testMessage);
 
         //open notifications shade and confirm contents
         boolean notificationOpen = mDevice.openNotification();
@@ -135,12 +113,8 @@ public class SimpleUiAutomatorTest {
         assertThat(notificationTextExists)
                 .named("error notification exists?").isTrue();
 
-        //on API 23+, the clear button is delayed for an animation
-        mDevice.wait(Until.hasObject(
-                By.descContains("Clear all notifications")), UI_TIMEOUT);
         //dismiss the notification
-        mDevice.findObject(By.descContains("Clear all notifications"))
-                .click();
+        mUiHelper.clearAllNotifications(UI_TIMEOUT);
     }
 
     private String getLauncherPackageName() {

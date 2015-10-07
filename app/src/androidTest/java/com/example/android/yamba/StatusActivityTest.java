@@ -3,13 +3,13 @@ package com.example.android.yamba;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.example.android.yamba.pages.StatusPageObject;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.clearText;
-import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -37,17 +37,15 @@ public class StatusActivityTest {
     //Validate the character counter returns the correct value
     @Test
     public void characterCounterReturnsCorrect() {
-        int maxChars = 140;
         String testString = "Test status update";
 
         //Enter test string
-        onView(withId(R.id.status_text))
-                .perform(typeText(testString));
+        StatusPageObject.typeStatus(testString);
 
-        int count = maxChars - testString.length();
         //Validate the change
         onView(withId(R.id.status_text_count))
-                .check(matches(withText(String.valueOf(count))));
+                .check(matches(withText(
+                        StatusPageObject.expectedCount(testString))));
     }
 
     //Validate the character counter handles zero conditions correctly
@@ -59,12 +57,12 @@ public class StatusActivityTest {
                 + " without extra chars? I worked really hard";
 
         //Enter test string
-        onView(withId(R.id.status_text))
-                .perform(typeText(testString));
+        StatusPageObject.typeStatus(testString);
 
         //Validate the change
         onView(withId(R.id.status_text_count))
-                .check(matches(withText(String.valueOf(0))));
+                .check(matches(withText(
+                        StatusPageObject.expectedCount(testString))));
 
         //User should be able to send this status
         onView(withId(R.id.status_button))
@@ -81,16 +79,14 @@ public class StatusActivityTest {
                 + " pork short loin tenderloin chuck. Salami leberkas cow ribeye pancetta.";
 
         //Enter test string
-        onView(withId(R.id.status_text))
-                .perform(typeText(testString));
+        StatusPageObject.typeStatus(testString);
 
         //User should NOT be able to send this status
         onView(withId(R.id.status_button))
                 .check(matches(not(isEnabled())));
 
         //Clear entry box
-        onView(withId(R.id.status_text))
-                .perform(clearText());
+        StatusPageObject.clearStatus();
 
         //Button should be active again
         onView(withId(R.id.status_button))

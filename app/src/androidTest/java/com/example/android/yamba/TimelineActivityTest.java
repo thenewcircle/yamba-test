@@ -1,17 +1,15 @@
 package com.example.android.yamba;
 
-import android.content.Context;
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+
+import com.example.android.yamba.pages.MainPageObject;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -27,11 +25,8 @@ public class TimelineActivityTest {
 
     @Test
     public void launchSettingsFromOverflowMenu() {
-        //Open overflow menu
-        Context context = activityRule.getActivity().getApplicationContext();
-        Espresso.openActionBarOverflowOrOptionsMenu(context);
-        //Click settings item
-        onView(withText(R.string.action_settings)).perform(click());
+        //Open OverflowMenu and click settings
+        MainPageObject.navigateToSettings();
 
         //Confirm navigation takes you to page with content specific to settings
         onView(withText(R.string.username_summary)).check(matches(isDisplayed()));
@@ -39,15 +34,8 @@ public class TimelineActivityTest {
 
     @Test
     public void launchPostFromOptionsMenu() {
-        try {
-            //Attempt to click post from the action bar
-            onView(withId(R.id.action_post)).perform(click());
-        } catch (NoMatchingViewException e) {
-            //Open OverflowMenu and click post
-            Context context = activityRule.getActivity().getApplicationContext();
-            Espresso.openActionBarOverflowOrOptionsMenu(context);
-            onView(withText(R.string.action_post)).perform(click());
-        }
+        //Discover and click post
+        MainPageObject.navigateToPost();
 
         //Confirm navigation takes you to page with content specific to status
         onView(withId(R.id.status_text)).check(matches(isDisplayed()));
