@@ -1,0 +1,7 @@
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.android.yamba">
+
+    <uses-sdk
+        tools:overrideLibrary="android.support.test.uiautomator.v18"/>
+
+</manifest>

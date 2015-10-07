@@ -15,10 +15,18 @@ android {
     }
 
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+    }
+
+    // Required to remove duplicate build errors in Hamcrest package
+    packagingOptions {
+        exclude 'LICENSE.txt'
     }
 }
 
@@ -33,4 +41,9 @@ dependencies {
 
     // Instrumentation test dependencies
     androidTestCompile 'com.android.support.test:runner:0.4'
+    androidTestCompile 'com.google.truth:truth:0.27'
+    // Espresso UI testing
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    // UIAutomator testing
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 }
