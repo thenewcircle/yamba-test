@@ -19,7 +19,7 @@ public class BootReceiver extends BroadcastReceiver {
                 .getDefaultSharedPreferences(context);
         long interval = Long.parseLong(
                 prefs.getString(context.getString(R.string.interval_key),
-                Long.toString(DEFAULT_INTERVAL)));
+                        Long.toString(DEFAULT_INTERVAL)));
 
         PendingIntent operation = PendingIntent.getService(context, -1,
                 new Intent(context, RefreshService.class),

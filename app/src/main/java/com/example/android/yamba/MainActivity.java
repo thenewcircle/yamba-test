@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity implements
 
     //Global notifier of when timeline is in the foreground
     private static boolean inTimeline = false;
+
     public static boolean isInTimeline() {
         return inTimeline;
     }
