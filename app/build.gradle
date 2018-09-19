@@ -1,26 +1,26 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
-
+    compileSdkVersion 27
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.example.android.yamba"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.newcircle:yamba-client:2.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.newcircle:yamba-client:2.1.0'
 }
