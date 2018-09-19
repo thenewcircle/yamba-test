@@ -13,6 +13,10 @@ import android.widget.TextView;
 
 public class DetailsFragment extends Fragment {
 
+    private TextView mTextUser;
+    private TextView mTextMessage;
+    private TextView mTextCreatedAt;
+
     //Best practice is to use a factory and feed parameters into arguments
     public static DetailsFragment newInstance(long statusId) {
         DetailsFragment fragment = new DetailsFragment();
@@ -23,10 +27,6 @@ public class DetailsFragment extends Fragment {
 
         return fragment;
     }
-
-    private TextView mTextUser;
-    private TextView mTextMessage;
-    private TextView mTextCreatedAt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
