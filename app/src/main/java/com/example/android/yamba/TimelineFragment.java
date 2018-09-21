@@ -1,8 +1,10 @@
 package com.example.android.yamba;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -25,28 +27,22 @@ public class TimelineFragment extends ListFragment implements
     private static final String[] FROM = {
             StatusContract.Column.USER,
             StatusContract.Column.MESSAGE,
-            StatusContract.Column.CREATED_AT };
+            StatusContract.Column.CREATED_AT};
     private static final int[] TO = {
             R.id.text_user,
             R.id.text_message,
-            R.id.text_created_at };
-
-    public interface OnTimelineItemSelectedListener {
-        public void onTimelineItemSelected(long id);
-    }
-
+            R.id.text_created_at};
     private OnTimelineItemSelectedListener mItemSelectedListener;
-
     private SimpleCursorAdapter mAdapter;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mItemSelectedListener = (OnTimelineItemSelectedListener) activity;
+            mItemSelectedListener = (OnTimelineItemSelectedListener) context;
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(
-                    activity.getClass().getSimpleName()
+                    context.getClass().getSimpleName()
                             + " must implement OnTimelineItemSelectedListener");
         }
     }
@@ -64,20 +60,21 @@ public class TimelineFragment extends ListFragment implements
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+    @NonNull
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         //Return all items from StatusProvider
         return new CursorLoader(getActivity(), StatusContract.CONTENT_URI,
                 null, null, null, StatusContract.DEFAULT_SORT);
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         Log.d(TAG, "onLoadFinished with cursor: " + data.getCount());
         mAdapter.swapCursor(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
     }
 
@@ -101,5 +98,9 @@ public class TimelineFragment extends ListFragment implements
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         mItemSelectedListener.onTimelineItemSelected(id);
+    }
+
+    public interface OnTimelineItemSelectedListener {
+        public void onTimelineItemSelected(long id);
     }
 }

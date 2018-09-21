@@ -16,13 +16,10 @@ import com.thenewcircle.yamba.client.YambaClient;
 import com.thenewcircle.yamba.client.YambaClientInterface;
 
 public class StatusUpdateService extends IntentService {
+    public static final String EXTRA_MESSAGE = "message";
+    public static final int NOTIFICATION_ID = 43;
     private static final String TAG =
             StatusUpdateService.class.getSimpleName();
-
-    public static final String EXTRA_MESSAGE = "message";
-
-    public static final int NOTIFICATION_ID = 43;
-
     private NotificationManager mNotificationManager;
 
     public StatusUpdateService() {
@@ -70,7 +67,8 @@ public class StatusUpdateService extends IntentService {
     }
 
     private void postProgressNotification() {
-        Notification notification = new NotificationCompat.Builder(this)
+        Notification notification = new NotificationCompat
+                .Builder(this, YambaApplication.POST_PROGRESS_CHANNEL_ID)
                 .setContentTitle("Posting Status")
                 .setContentText("Status update in progress...")
                 .setSmallIcon(android.R.drawable.sym_action_email)
@@ -87,7 +85,8 @@ public class StatusUpdateService extends IntentService {
         PendingIntent operation = PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(this)
+        Notification notification = new NotificationCompat
+                .Builder(this, YambaApplication.POST_PROGRESS_CHANNEL_ID)
                 .setContentTitle("Post Error")
                 .setContentText("Error posting status update. Tap to try again.")
                 .setSmallIcon(android.R.drawable.sym_action_email)
