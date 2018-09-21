@@ -62,6 +62,10 @@ public class StatusActivityTest {
         onView(withId(R.id.status_text))
                 .perform(typeText(testString));
 
+        // Validate no Auto-Correct has replaced any "chars"
+        onView(withId(R.id.status_text_count))
+                .check(matches(withText(testString)));
+
         //Validate the change
         onView(withId(R.id.status_text_count))
                 .check(matches(withText(String.valueOf(0))));

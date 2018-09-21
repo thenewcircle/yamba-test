@@ -22,7 +22,6 @@ android {
         }
     }
 
-
     // Required to remove duplicate build errors in Hamcrest package
     packagingOptions {
         exclude 'LICENSE.txt'
@@ -35,8 +34,8 @@ dependencies {
 
     // Local unit test dependencies
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.powermock:powermock-api-mockito:1.6.2'
-    testImplementation 'org.powermock:powermock-module-junit4:1.6.2'
+    testImplementation 'org.powermock:powermock-api-mockito:1.6.6'
+    testImplementation 'org.powermock:powermock-module-junit4:1.6.6'
 
     // Instrumentation test dependencies
     // AndroidJUnitRunner and JUnit Rules
