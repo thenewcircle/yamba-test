@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
-
+    compileSdkVersion 27
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.example.android.yamba"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -18,7 +17,6 @@ android {
         testInstrumentationRunnerArgument "listener",
                 "com.example.android.yamba.listeners.ScreenshotOnFailRunListener"
     }
-
     buildTypes {
         debug {
             testCoverageEnabled true
@@ -36,19 +34,22 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.newcircle:yamba-client:2.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.newcircle:yamba-client:2.1.0'
 
     // Local unit test dependencies
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.powermock:powermock-api-mockito:1.6.2'
-    testCompile 'org.powermock:powermock-module-junit4:1.6.2'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.powermock:powermock-api-mockito:1.6.6'
+    testImplementation 'org.powermock:powermock-module-junit4:1.6.6'
 
     // Instrumentation test dependencies
-    androidTestCompile 'com.android.support.test:runner:0.4'
-    androidTestCompile 'com.google.truth:truth:0.27'
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation "com.google.truth:truth:0.42"
+
     // Espresso UI testing
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // UIAutomator testing
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
 }

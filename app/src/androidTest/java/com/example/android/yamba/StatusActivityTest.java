@@ -59,6 +59,10 @@ public class StatusActivityTest {
         //Enter test string
         StatusPageObject.typeStatus(testString);
 
+        // Validate no Auto-Correct has replaced any "chars"
+        onView(withId(R.id.status_text))
+                .check(matches(withText(testString)));
+
         //Validate the change
         onView(withId(R.id.status_text_count))
                 .check(matches(withText(
