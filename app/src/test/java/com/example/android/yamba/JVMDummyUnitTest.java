@@ -41,7 +41,7 @@ public class JVMDummyUnitTest {
         //Set up collection to evaluate
         List<String> list = Arrays.asList("Android", "Google", "NewCircle");
 
-        assert_().withFailureMessage("missing items")
+        assert_().withMessage("missing items")
                 .that(list)
                 .named("item list")
                 .containsExactly("Android", "Google", "NewCircle");

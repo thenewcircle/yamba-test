@@ -13,10 +13,9 @@ import android.util.Log;
 
 public class StatusProvider extends ContentProvider {
     private static final String TAG = StatusProvider.class.getSimpleName();
-    private DbHelper mDbHelper;
-
     private static final UriMatcher sURIMatcher = new UriMatcher(
             UriMatcher.NO_MATCH);
+
     static {
         // content://com.example.android.yamba.StatusProvider/status
         sURIMatcher.addURI(StatusContract.AUTHORITY, StatusContract.TABLE,
@@ -25,6 +24,8 @@ public class StatusProvider extends ContentProvider {
         sURIMatcher.addURI(StatusContract.AUTHORITY, StatusContract.TABLE
                 + "/#", StatusContract.STATUS_ITEM);
     }
+
+    private DbHelper mDbHelper;
 
     @Override
     public boolean onCreate() {
@@ -44,7 +45,7 @@ public class StatusProvider extends ContentProvider {
                         String[] selectionArgs, String sortOrder) {
 
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-        qb.setTables( StatusContract.TABLE );
+        qb.setTables(StatusContract.TABLE);
 
         switch (sURIMatcher.match(uri)) {
             case StatusContract.STATUS_DIR:
@@ -123,7 +124,7 @@ public class StatusProvider extends ContentProvider {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         int ret = db.delete(StatusContract.TABLE, where, selectionArgs);
 
-        if(ret>0) {
+        if (ret > 0) {
             // Notify that data for this uri has changed
             getContext().getContentResolver().notifyChange(uri, null);
         }
