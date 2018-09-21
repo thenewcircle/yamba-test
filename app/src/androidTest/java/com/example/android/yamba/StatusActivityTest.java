@@ -63,7 +63,7 @@ public class StatusActivityTest {
                 .perform(typeText(testString));
 
         // Validate no Auto-Correct has replaced any "chars"
-        onView(withId(R.id.status_text_count))
+        onView(withId(R.id.status_text))
                 .check(matches(withText(testString)));
 
         //Validate the change
