@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="@string/status_button"/>
 
@@ -23,18 +22,15 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/status_button"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/status_button"
         android:layout_below="@+id/status_button"
-        android:gravity="left|top"
+        android:gravity="start|top"
         android:hint="@string/status_text_hint"/>
 
     <TextView
         android:id="@+id/status_text_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
