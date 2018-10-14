@@ -24,6 +24,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/status_button"
+        android:inputType="textMultiLine"
         android:gravity="start|top"
         android:hint="@string/status_text_hint"/>
 
