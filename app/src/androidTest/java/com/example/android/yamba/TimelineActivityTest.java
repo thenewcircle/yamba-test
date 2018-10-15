@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -52,12 +53,12 @@ public class TimelineActivityTest {
         final Context context = InstrumentationRegistry.getTargetContext();
         mIdlingResource =
                 new ServiceIdlingResource(context, RefreshService.class);
-        Espresso.registerIdlingResources(mIdlingResource);
+        IdlingRegistry.getInstance().register(mIdlingResource);
     }
 
     @After
     public void detachIdlingResource() {
-        Espresso.unregisterIdlingResources(mIdlingResource);
+        IdlingRegistry.getInstance().unregister(mIdlingResource);
     }
 
     @Test
