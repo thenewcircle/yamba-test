@@ -19,13 +19,13 @@ public class ScreenshotOnFailRunListener extends RunListener {
     private File mScreenshotDirectory;
 
     @Override
-    public synchronized void testRunStarted(Description description) {
+    public void testRunStarted(Description description) {
         mDevice = UiDevice.getInstance(
                 InstrumentationRegistry.getInstrumentation());
 
         mScreenshotDirectory = new File(
-                Environment.getExternalStorageDirectory().getAbsoluteFile()
-                        + "/test_screenshots");
+                Environment.getExternalStorageDirectory(),
+                "test_screenshots");
 
         if (!mScreenshotDirectory.exists()) {
             boolean success = mScreenshotDirectory.mkdirs();
@@ -45,7 +45,7 @@ public class ScreenshotOnFailRunListener extends RunListener {
     }
 
     @Override
-    public synchronized void testFailure(Failure failure) {
+    public void testFailure(Failure failure) {
         final Description description = failure.getDescription();
         // build filename from class and method using .png as the file type
         String name = String.format("%s.%s.png",
