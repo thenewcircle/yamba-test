@@ -10,7 +10,6 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
 import java.io.File;
-import java.io.IOException;
 
 public class ScreenshotOnFailRunListener extends RunListener {
     private static final String TAG =
@@ -20,12 +19,13 @@ public class ScreenshotOnFailRunListener extends RunListener {
     private File mScreenshotDirectory;
 
     @Override
-    public void testRunStarted(Description description) throws Exception {
+    public synchronized void testRunStarted(Description description) {
         mDevice = UiDevice.getInstance(
                 InstrumentationRegistry.getInstrumentation());
+
         mScreenshotDirectory = new File(
-                Environment.getExternalStorageDirectory(),
-                "test_screenshots");
+                Environment.getExternalStorageDirectory().getAbsoluteFile()
+                        + "/test_screenshots");
 
         if (!mScreenshotDirectory.exists()) {
             boolean success = mScreenshotDirectory.mkdirs();
@@ -38,14 +38,14 @@ public class ScreenshotOnFailRunListener extends RunListener {
             for (File file : mScreenshotDirectory.listFiles()) {
                 boolean success = file.delete();
                 if (!success) {
-                    Log.w(TAG, "Unable to delete "+file);
+                    Log.w(TAG, "Unable to delete " + file);
                 }
             }
         }
     }
 
     @Override
-    public void testFailure (Failure failure) throws IOException {
+    public synchronized void testFailure(Failure failure) {
         final Description description = failure.getDescription();
         // build filename from class and method using .png as the file type
         String name = String.format("%s.%s.png",

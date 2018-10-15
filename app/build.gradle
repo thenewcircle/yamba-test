@@ -14,8 +14,6 @@ android {
         //Custom arguments
         testInstrumentationRunnerArgument "testUser", "user"
         testInstrumentationRunnerArgument "testMessage", "Android"
-        testInstrumentationRunnerArgument "listener",
-                "com.example.android.yamba.listeners.ScreenshotOnFailRunListener"
     }
     buildTypes {
         debug {

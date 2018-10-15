@@ -1,9 +1,11 @@
 package com.example.android.yamba;
 
+import android.Manifest;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
+import android.support.test.rule.GrantPermissionRule;
 
 import com.example.android.yamba.pages.MainPageObject;
+import com.example.android.yamba.runners.MyRunner;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,9 +16,13 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.not;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(MyRunner.class)
 public class TimelineActivityTest {
+    @Rule
+    public GrantPermissionRule permissionRule =
+            GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     //Instantiate and provide access to the Activity under test
     @Rule
@@ -38,6 +44,7 @@ public class TimelineActivityTest {
         MainPageObject.navigateToPost();
 
         //Confirm navigation takes you to page with content specific to status
-        onView(withId(R.id.status_text)).check(matches(isDisplayed()));
+        // Let's break this one
+        onView(withId(R.id.status_text)).check(matches(not(isDisplayed())));
     }
 }
