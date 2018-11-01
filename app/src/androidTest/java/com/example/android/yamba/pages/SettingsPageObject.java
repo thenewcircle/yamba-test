@@ -8,6 +8,7 @@ import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.endsWith;
@@ -37,5 +38,9 @@ public class SettingsPageObject {
         onView(withClassName(endsWith("EditText"))).perform(clearText());
         onView(withClassName(endsWith("EditText"))).perform(typeText(password));
         onView(withId(android.R.id.button1)).perform(click());
+    }
+
+    public static void navigateToTimeline() {
+        onView(withContentDescription("Navigate up")).perform(click());
     }
 }

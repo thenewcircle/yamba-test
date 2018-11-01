@@ -95,7 +95,7 @@ public class SimpleUiAutomatorTest {
         SettingsPageObject.setPassword(password);
 
         //return to main activity
-        mDevice.pressBack();
+        SettingsPageObject.navigateToTimeline();
 
         //click post message
         MainPageObject.navigateToPost();
